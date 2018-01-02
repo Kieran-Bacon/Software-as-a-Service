@@ -14,33 +14,14 @@ That is why the project is broken down into three parts:
 To eliminate duplicating code that would inevertable be used in each part. I 
 have separated out many of the functions and actions into required files.
 
-## Evaluation.js - Resolve and Refactor
+## Evaluation.js - Functions Resolve and Refactor
 
-Resolve aims to identify keys and replace them with there expression values from the storage
-module. During this process it is responsible for recording what keys have already been visited,
-most importantly, keys that have yet to get a value. This is important when trying to eliminate
-circular expressions, as if a chain of expressions try to evaluate another member of its chain
-before reaching a mathematical value, no value would ever be able to be determined. Finally it
-returns a value for the expression when all key references have been replaced.
-Refactor is used to identify if a key refer-
-ence exists within a raw snippet of expression.
-If found it then splits and stores sections of
-the expression so that it is in a format ready
-for Resolve to work on the extracted key. If
-no key is found it is responsible for informing
-resolve and removing from the call stack the
-key that created the expression it just eval-
-uated as it is known that the key in the call
-stack could not be part of a circular definition.
-Lets look at an example of a circular ex-
-pression to demonstrate there interactions:
-In this example you can see that A4 is ref-
-erenced twice from two different cells but it is
-not apart of any circular reference chain. This
-Figure 1: Single Circular
-needs to be avoided while the obvious chain of
-A6 needs to be identified.
-This is a step by step look at the two functions interacting. You will notice that A4 never
-appears in the call stack twice.
+The functions resolve and refactor are recursive and aim to simplify a cells function into a mathematically correct statement and evaluate it. Recursion is begun by passing a single cell key to resolve, resolve then looks up the cell function and sets it as its initial expression. Refactor is then called to identify the next leading cell key within the expression. Refactor identifies the sections of the expression that are guaranteed/complete, the key, and the unprocessed sections of the expression (lhs, key, rhs). This information is then provided to resolve who forms a new expression by concatenating the completed sections with the new key's function and the unprocessed snippets from the first expression.
+
+This method ensures cell evaluation is conducted in a depth-first manner and is vital for ensuring that circular definitions do not appear. During the back and forth between resolve and refactor, a cell key stack is formed that indicates which keys we are still in the process of evaluating. Whenever a true value is reached (one within a key present), the key responsible for the value is removed from the stack. This shall always be the key on the top of the stack.
+
+Circular definitions are then identified when resolve attempts to begin processing of a key already present in the call stack.
+
+![Example of circular expression](https://github.com/Kieran-Bacon/Software-as-a-Service.git/imgs/example.png)
 
 
