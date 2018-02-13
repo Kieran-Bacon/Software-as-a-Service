@@ -1,18 +1,12 @@
 # Software-as-a-Service
 
-The task was to produce micro services in a versitle and robust manner. 
-As a form of evidence of this, it was additionally required that the 
-mirco-services work together to function as a service.
+This repository describes a backend service for the storage, evaluation, and return of web-based spreadsheet's cells. The service is the combination of two services, a storage service for key-value pairs, and an evaluation service.
 
-That is why the project is broken down into three parts:
+Part 1 is the storage service using the mongoDB client. Key value pairs are stored.
+Part 2 is a self-contained evaluation and storage service. Storage of cell's value/formula is necessary for the evaluation phases as they reference them.
+Part 3 separates out part 2 into the two specific microservices (or at least uncouples part 1). The evaluation service communicates through a standard API to an arbitrary storage unit which happens to be the storage unit of part 1.
 
- - Part 1 is the creation of a basic storage service, that allows for the crud 
- operations.
- - Part 2 is a service that acts as a backend for a spreadsheet program. 
- - Part 3 is a combination of the storage service and the spreadsheet backend.
-
-To eliminate duplicating code that would inevertable be used in each part. I 
-have separated out many of the functions and actions into required files.
+I have put lots of emphasis on code reuse as these sections overlap heavily. I have separated out many of the functions and actions into required files to allow for reuse in multiple parts.
 
 ## Evaluation.js - Functions Resolve and Refactor
 
