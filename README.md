@@ -2,9 +2,9 @@
 
 This repository describes a backend service for the storage, evaluation, and return of web-based spreadsheet's cells. The service is the combination of two services, a storage service for key-value pairs, and an evaluation service.
 
-Part 1 is the storage service using the mongoDB client. Key value pairs are stored.
-Part 2 is a self-contained evaluation and storage service. Storage of cell's value/formula is necessary for the evaluation phases as they reference them.
-Part 3 separates out part 2 into the two specific microservices (or at least uncouples part 1). The evaluation service communicates through a standard API to an arbitrary storage unit which happens to be the storage unit of part 1.
+- Part 1 is the storage service using the mongoDB client. Key value pairs are stored.
+- Part 2 is a self-contained evaluation and storage service. Storage of cell's value/formula is necessary for the evaluation phases as they reference them.
+- Part 3 separates out part 2 into the two specific microservices (or at least uncouples part 1). The evaluation service communicates through a standard API to an arbitrary storage unit which happens to be the storage unit of part 1.
 
 I have put lots of emphasis on code reuse as these sections overlap heavily. I have separated out many of the functions and actions into required files to allow for reuse in multiple parts.
 
